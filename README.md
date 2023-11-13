@@ -14,6 +14,6 @@ cd clothingStore <br/>
 npm install <br/>
 npm start <br/>
 
-### Run in webrowers
+### Run in web browser
 
 http://localhost:9876/
