@@ -13,3 +13,7 @@ git clone https://github.com/ngoxuansy30082002/clothingStore.git <br/>
 cd clothingStore <br/>
 npm install <br/>
 npm start <br/>
+
+### Run in webrowers
+
+http://localhost:9876/
