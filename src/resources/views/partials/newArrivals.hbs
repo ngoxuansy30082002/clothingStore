@@ -1,0 +1,30 @@
+<section id="product1" class="section-p1">
+    <h2>New arrivals</h2>
+    <p>Summer Collection New Morden Design</p>
+    <div class="pro-container">
+        {{#each newArrivals}}
+        <div class="pro">
+            <a href="/shop/{{this.slug}}">
+                <img src="{{this.image.[0]}}" alt="" />
+            </a>
+            <div class="des">
+                <span>{{this.brand}}</span>
+                <a href="/shop/{{this.slug}}">
+                    <h5>{{this.name}}</h5>
+                </a>
+                <div class="start">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                </div>
+                <h4>{{this.price}}đ</h4>
+            </div>
+            <a href="#">
+                <i class="fal fa-shopping-cart cart"></i>
+            </a>
+        </div>
+        {{/each}}
+    </div>
+</section>

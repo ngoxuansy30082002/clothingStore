@@ -1,0 +1,45 @@
+<section id="page-header">
+    <h2>#Stay Home</h2>
+    <p>Save more with coupons & up to 70% off!</p>
+</section>
+<section id="product1" class="section-p1">
+    <div class="pro-container">
+        {{#each product}}
+        <div class="pro">
+            <a href="/shop/{{this.slug}}">
+                <img src="{{this.image.[0]}}" alt="" />
+            </a>
+            <div class="des">
+                <span>{{this.brand}}</span>
+                <a href="/shop/{{this.slug}}">
+                    <h5>{{this.name}}</h5>
+                </a>
+                <div class="start">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                </div>
+                <h4>{{this.price}}đ</h4>
+            </div>
+            <a href="#">
+                <i class="fal fa-shopping-cart cart"></i>
+            </a>
+        </div>
+        {{/each}}
+    </div>
+</section>
+<section id="Panigation" class="section-p1">
+    {{#each pages}}
+    <a href="/shop?page={{this}}">{{this}}</a>
+    {{/each}}
+</section>
+
+{{>newsletter}}
+
+<script>
+    let navs = document.querySelectorAll("#navbar li a")
+    navs[1].classList.add("active")
+
+</script>

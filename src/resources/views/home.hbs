@@ -1,0 +1,84 @@
+<section id="hero">
+    <h4>Trade-in-offer</h4>
+    <h2>Super value deals</h2>
+    <h1>On all products</h1>
+    <p>Save more with coupons & up to 70% off!</p>
+    <button>Shop Now</button>
+</section>
+
+{{>feature}}
+
+<section id="product1" class="section-p1">
+    <h2>Freatured Product</h2>
+    <p>Summer Collection New Morden Design</p>
+    <div class="pro-container">
+        {{#each freadtureProduct}}
+        <div class="pro">
+            <a href="/shop/{{this.slug}}">
+                <img src="{{this.image.[0]}}" alt="" />
+            </a>
+            <div class="des">
+                <span>{{this.brand}}</span>
+                <a href="/shop/{{this.slug}}">
+                    <h5>{{this.name}}</h5>
+                </a>
+                <div class="start">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                </div>
+                <h4>{{this.price}}đ</h4>
+            </div>
+            <a href="#">
+                <i class="fal fa-shopping-cart cart"></i>
+            </a>
+        </div>
+        {{/each}}
+    </div>
+</section>
+
+<section id="Banner" class="section-m1">
+    <h4>Repair Services</h4>
+    <h2>Up to <span>70% Off</span> - All t-shirt & Accessories</h2>
+    <button class="normal">explore more</button>
+</section>
+
+{{>newArrivals}}
+
+<section id="sm-banner" class="section-p1">
+    <div class="banner-box banner-box1">
+        <h4>crazy deals</h4>
+        <h2>buy 1 get 1</h2>
+        <span>The best classic dress is on sale at cara</span>
+        <button class="while">learn more</button>
+    </div>
+    <div class="banner-box banner-box2">
+        <h4>crazy deals</h4>
+        <h2>Upcomming</h2>
+        <span>The best classic dress is on sale at cara</span>
+        <button class="while">Collection</button>
+    </div>
+</section>
+<section id="banner3">
+    <div class="banner-box">
+        <h2>Season sale</h2>
+        <h3>Winter Collection -50% OFF</h3>
+    </div>
+    <div class="banner-box banner-box2">
+        <h2>NEW FOOTWEAR Collection</h2>
+        <h3>Winter Collection -50% OFF</h3>
+    </div>
+    <div class="banner-box banner-box3">
+        <h2>T-Shirt</h2>
+        <h3>Winter Collection -50% OFF</h3>
+    </div>
+</section>
+
+{{>newsletter}}
+
+<script>
+    let navs = document.querySelectorAll("#navbar li a")
+    navs[0].classList.add("active")
+</script>
