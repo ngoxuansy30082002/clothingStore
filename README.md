@@ -4,7 +4,7 @@ Clothing Store fullstack
 
 ### Config
 
-/config/db/index.js
+/config/db/index.js <br/>
 mongodb://127.0.0.1:27017/clothingStore
 
 ### Install
