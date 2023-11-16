@@ -1,20 +1,20 @@
-const siteRoute = require("./homeRoute");
-const shopRoute = require("./shopRoute");
-const adminRoute = require("./adminRoute");
-const loginRoute = require("./loginRoute");
-const blogRoute = require("./blogRoute");
-const aboutRoute = require("./aboutRoute");
-const contactRoute = require("./contactRoute");
-const cartRoute = require("./cartRoute");
+const homeRoute = require("./home.routes");
+const shopRoute = require("./shop.routes");
+const adminRoute = require("./admin.routes");
+const authRoute = require("./auth.routes");
+const blogRoute = require("./blog.routes");
+const aboutRoute = require("./about.routes");
+const contactRoute = require("./contact.routes");
+const cartRoute = require("./cart.routes");
 
 function route(app) {
   app.use("/shop", shopRoute);
-  app.use("/home", siteRoute);
-  app.use("/admin", adminRoute);
   app.use("/blog", blogRoute);
   app.use("/about", aboutRoute);
   app.use("/contact", contactRoute);
   app.use("/cart", cartRoute);
-  app.use("/", loginRoute);
+  app.use("/admin", adminRoute);
+  app.use("/auth", authRoute);
+  app.use("/", homeRoute);
 }
 module.exports = route;

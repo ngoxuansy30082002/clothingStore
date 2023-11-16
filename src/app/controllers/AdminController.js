@@ -1,14 +1,35 @@
 const Product = require("../models/Product");
+const User = require("../models/User");
+
 const {
   multipleMongooseToObject,
   shuffleArray,
 } = require("../../util/mongoose");
-const { admin } = require("./LoginController");
 
 class AdminController {
-  //[GET] /admin
-  async admin(req, res, next) {
-    res.render("admin");
+  //[GET] /admin/all-user
+  async getAllUser(req, res, next) {
+    try {
+      const users = await User.find({});
+      res.status(200).json(users);
+    } catch (error) {
+      res.status(500).json(error);
+    }
+  }
+  //[DELETE] /admin/delete-user/:id
+  async deleteUser(req, res, next) {
+    try {
+      const users = await User.findById(req.params.id);
+      res.status(200).json("delete ok");
+    } catch (error) {
+      res.status(500).json(error);
+    }
+  }
+  // [GET]/admin
+  async adminPage(req, res, next) {
+    res.status(200).render("admin/admin", {
+      showHeaderAndFooter: true,
+    });
   }
 }
 module.exports = new AdminController();

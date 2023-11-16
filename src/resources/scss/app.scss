@@ -437,13 +437,18 @@ form.sign-in-form {
 .toast{
     display: flex;
     align-items: center;
-    background-color: transparent;
+    background-color: #fff;
     border-radius: 2px;
+    border-left: 4px solid black;
     padding: 20px 0;
     box-shadow: 0 5px 8px rgba(0, 0, 0, 0.08);
     height: 80px;
     min-width: 400px;
-    animation: slideInLeft ease 0.8s , faceOut linear 1s 5s forwards;
+    animation: slideInLeft ease 0.3s , faceOut linear 0.6s 2s forwards;
+    transition: all linear 0.3s;
+}
+.toast + .toast{
+    margin-top: 24px;
 }
 @keyframes slideInLeft {
     from{
@@ -471,23 +476,27 @@ form.sign-in-form {
     font-size: 16px;
     font-weight: 600;
 }
-.toast-success-text {
-    color: rgb(42, 235, 42);
-}
-.toast-success{
-    border-left: 4px solid rgb(42, 235, 42);
-}
-.toast-error-text {
-    color: red;
-}
 
-.toast-error {
-    border-left: 4px solid red;
-}
 .toast__msg {
     font-size: 14px;
     margin-top: 4px;
     color: #1b1b1b;
+    line-height: 1.5;
+}
+
+.toast__success{
+    border-color:  #47d864;
+}
+.toast__success .toast__icon,
+.toast__success .toast__title{
+    color: #47d864;
+}
+.toast__error{
+    border-color:  #ff623d;
+}
+.toast__error .toast__icon,
+.toast__error .toast__title {
+    color: #ff623d;
 }
 
 // ---------------------------------------------------------------------
@@ -1222,7 +1231,7 @@ footer .copyright {
 
 /* about page */
 
-#page-header .about-header {
+#page-header.about-header {
     background-image: url('/img/about/banner.png');
 }
 
