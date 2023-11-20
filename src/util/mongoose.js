@@ -5,6 +5,7 @@ module.exports = {
   singleMongooseToObject: function (mongoose) {
     return mongoose ? mongoose.toObject() : mongoose;
   },
+  //xáo trộn mảng
   shuffleArray: function (array) {
     for (let i = array.length - 1; i > 0; i--) {
       const j = Math.floor(Math.random() * (i + 1));

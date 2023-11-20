@@ -3,11 +3,12 @@ const jwt = require("jsonwebtoken");
 const authMiddleware = {
   //verify token
   verifyToken: (req, res, next) => {
-    const token = req.headers.token;
+    const token = `Bearer ${req.cookies.accessToken}`;
+    // console.log(token);
     if (token) {
       const accessToken = token.split(" ")[1]; //Bearer 123456 => accessToken = 123456
       jwt.verify(accessToken, process.env.JWT_ACCESS_KEY, (err, user) => {
-        if (err) return res.status(403).json("Token is not valid");
+        if (err) return res.redirect("/auth");
         else req.user = user;
         next();
       });
@@ -18,7 +19,8 @@ const authMiddleware = {
 
   verifyTokenAndAdminAuth: (req, res, next) => {
     authMiddleware.verifyToken(req, res, () => {
-      if (req.user.id == req.params.id || req.user.admin) {
+      // req.user.id == req.params.id ||
+      if (req.user.admin) {
         next();
       } else {
         res.status(403).json("you are not allowed delete other");

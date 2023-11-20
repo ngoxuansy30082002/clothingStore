@@ -1,7 +1,7 @@
-<div class="container">
+<div class="login-container">
     <div class="forms-container">
         <div class="signin-signup">
-            <form action="/shop" class="sign-in-form" method="POST" onsubmit="handleLogin(event)">
+            <form action="" class="sign-in-form" method="POST" onsubmit="handleLogin(event)">
                 <h2 class="title">Sign in</h2>
                 <div class="input-field">
                     <i class="fas fa-user"></i>
@@ -30,7 +30,7 @@
                     </a>
                 </div>
             </form>
-            <form action="/register" class="sign-up-form" method="POST" onsubmit="handleRegister(event)">
+            <form action="" class="sign-up-form" method="POST" onsubmit="handleRegister(event)">
                 <h2 class="title">Sign up</h2>
                 <div class="input-field">
                     <i class="fas fa-user"></i>
@@ -100,59 +100,5 @@
 <div id="toast">
 
 </div>
-{{!-- {{#if usernameError}}
-<div id="toast">
-    <div class="toast toast-error">
-        <div class="toast__icon toast-error-text">
-            <i class="fas fa-exclamation-circle"></i>
-        </div>
-        <div class="toast__body">
-            <h3 class="toast__title toast-error-text">LOGIN ERROR</h3>
-            <p class="toast__msg">Username not found!!!</p>
-        </div>
-    </div>
-</div>
-{{/if}}
 
-{{#if passwordError}}
-<div id="toast">
-    <div class="toast toast-error">
-        <div class="toast__icon toast-error-text">
-            <i class="fas fa-exclamation-circle"></i>
-        </div>
-        <div class="toast__body">
-            <h3 class="toast__title toast-error-text">LOGIN ERROR</h3>
-            <p class="toast__msg">Password incorrect!!!</p>
-        </div>
-    </div>
-</div>
-{{/if}}
-
-{{#if signUpSucces}}
-<div id="toast">
-    <div class="toast toast-success">
-        <div class="toast__icon toast-success-text">
-            <i class="fas fa-check-circle"></i>
-        </div>
-        <div class="toast__body">
-            <h3 class="toast__title toast-success-text">SIGN UP SUCCESS</h3>
-            <p class="toast__msg">Congratulation!!!</p>
-        </div>
-    </div>
-</div>
-{{/if}}
-
-{{#if signUpError}}
-<div id="toast">
-    <div class="toast toast-error">
-        <div class="toast__icon toast-error-text">
-            <i class="fas fa-exclamation-circle"></i>
-        </div>
-        <div class="toast__body">
-            <h3 class="toast__title toast-error-text">SIGN UP ERROR</h3>
-            <p class="toast__msg">Account or email already exists!!!</p>
-        </div>
-    </div>
-</div>
-{{/if}} --}}
-<script src="/login.js"></script>
+<script src="/js/login.js"></script>

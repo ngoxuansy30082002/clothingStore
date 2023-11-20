@@ -46,6 +46,12 @@ class AuthController {
           path: "/",
           samSite: "strict",
         });
+        res.cookie("accessToken", accessToken, {
+          httpOnly: true,
+          secure: false,
+          path: "/",
+          samSite: "strict",
+        });
         const { password, ...other } = user._doc; // xóa password trong response
         // res.redirect("/home");
         res.status(200).json({

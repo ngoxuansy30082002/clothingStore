@@ -1,0 +1,45 @@
+html{
+    font-family: Arial, sans-serif;
+}
+
+#navbar {
+    margin-bottom: 0;
+}
+.admin__product{
+    display: block;
+}
+.admin__product__img{
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+}
+.admin__product__stt {
+    width: 5%;
+}
+.admin__product__image {
+    width: 15%;
+}
+.admin__product__name {
+    width: 35%;
+}
+.admin__product__catelogy {
+    width: 15%;
+}
+.admin__product__brand{
+    width: 20%;
+}
+.admin__product__price{
+    width: 10%;
+}
+.btn{
+    box-shadow: none;
+    width: 100px;
+    height: 40px;
+}
+.add_product_btn{
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 200px;
+    margin: 0;
+}

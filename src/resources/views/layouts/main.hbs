@@ -2,26 +2,39 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Lobby Store</title>
-    <link rel="icon" href="/img/icon_logo.png" type="image/x-icon">
-    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" />
-    <script src="https://kit.fontawesome.com/64d58efce2.js" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="/css/app.css" />
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Lobby Store</title>
+  <link rel="icon" href="/img/icon_logo.png" type="image/x-icon">
+  <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+
+  <script src="https://kit.fontawesome.com/64d58efce2.js" crossorigin="anonymous"></script>
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"
+    integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+  {{!-- socketIO --}}
+  <script src="/socket.io/socket.io.js"></script>
+  {{!-- socketIO --}}
+  <link rel="stylesheet" href="/css/app.css" />
 </head>
 
-<body>
-    {{#if showHeaderAndFooter}}
-    {{>header}}
-    {{/if}}
+<body id="udemy" class="
+    ud-app-loader ud-component--course-landing-page-udlite
+  udemy " data-clp-course-id="3523784" data-module-id="course-landing-page/udlite">
+  {{#if showHeaderAndFooter}}
+  {{>header}}
+  {{/if}}
+  {{#if showAdminHeaderAndFooter}}
+  {{>headerAdmin}}
+  {{/if}}
 
-    {{{body}}}
+  {{{body}}}
 
-    {{#if showHeaderAndFooter}}
-    {{>footer}}
-    {{/if}}
+  {{#if showHeaderAndFooter}}
+  {{>footer}}
+  {{/if}}
+
 </body>
 
 </html>

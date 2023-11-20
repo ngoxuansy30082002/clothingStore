@@ -1,6 +1,6 @@
 const sign_in_btn = document.querySelector("#sign-in-btn");
 const sign_up_btn = document.querySelector("#sign-up-btn");
-const container = document.querySelector(".container");
+const container = document.querySelector(".login-container");
 
 sign_up_btn.addEventListener("click", () => {
   container.classList.add("sign-up-mode");
@@ -42,6 +42,13 @@ let user = {};
 function handleChange(event) {
   user[event.target.name] = event.target.value;
 }
+
+// ----------------- SocketIO ------------------------//
+// ----------------- SocketIO ------------------------//
+// ----------------- SocketIO ------------------------//
+// ----------------- SocketIO ------------------------//
+// connect to server
+var socket = io("http://localhost:9000");
 
 async function handleLogin(event) {
   event.preventDefault();
