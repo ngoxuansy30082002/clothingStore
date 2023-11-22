@@ -7,6 +7,7 @@ const morgan = require("morgan"); // HTTp logger
 const methodOverride = require("method-override");
 const { engine } = require("express-handlebars"); // handle view
 const route = require("./routes"); //router
+const socketio = require("./serverSocketIO");
 
 const db = require("./config/db.config"); // mongo database
 // connect to mongodb
@@ -50,18 +51,7 @@ app.set("views", path.join(__dirname, "resources", "views")); // chỉ định �
 route(app);
 
 // socketIO
-io.on("connection", (socket) => {
-  console.log("Connect ", socket.id);
-  socket.on("disconnect", () => {
-    console.log("Disconnect ", socket.id);
-  });
-  socket.on("Client-send-data", (data) => {
-    console.log(data);
-    // io.sockets.emit("Server-send-data", `server: ${data}`); // return response all client
-    // socket.emit("Server-send-data", `server: ${data}`); // only return response to sending client
-    socket.broadcast.emit("Server-send-data", `server: ${data}`); // return response broadcast except client send
-  });
-});
+socketio(io);
 //end socketIO
 
 httpServer.listen(port, (request, respond) => {

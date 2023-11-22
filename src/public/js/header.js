@@ -1,5 +1,5 @@
 const loginUser = document.querySelector("#navbar li:last-child a");
-const currentUser = JSON.parse(localStorage.getItem("currentUser"));
+var currentUser = JSON.parse(localStorage.getItem("currentUser"));
 var newText = "Login";
 
 if (currentUser) {
@@ -8,7 +8,7 @@ if (currentUser) {
   if (nav) {
     const newLi = document.createElement("li");
     const newLink = document.createElement("a");
-    newLink.href = "/";
+    newLink.href = "/auth/logout";
     newLink.textContent = "Logout";
 
     newLi.appendChild(newLink);

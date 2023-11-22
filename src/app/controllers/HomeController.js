@@ -7,7 +7,6 @@ class HomeController {
   //[GET] /home
   async home(req, res, next) {
     try {
-      res.clearCookie("accessToken", { path: "/" });
       let product = await Product.find({});
       let shuffledProducts = shuffleArray(product);
       let freadtureProduct = shuffledProducts.slice(0, 4); //lấy randorm 8 sản phẩm trong database

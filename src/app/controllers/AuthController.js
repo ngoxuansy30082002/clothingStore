@@ -61,12 +61,20 @@ class AuthController {
         // res.redirect("/");
         return;
       }
+    } catch (error) {}
+  }
+
+  //[GET] /auth/logout
+  async logoutUser(req, res, next) {
+    try {
+      res.clearCookie("accessToken");
+      res.redirect("/");
     } catch (error) {
       res.status(500).json(error);
     }
   }
 
-  //[POST] /signUp
+  //[POST] /auth/register
   async registerUser(req, res, next) {
     try {
       const salt = await bcrypt.genSalt(10);

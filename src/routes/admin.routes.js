@@ -106,6 +106,11 @@ router.post(
   authMiddleware.verifyTokenAndAdminAuth,
   adminController.insertBlog
 );
+router.get(
+  "/message",
+  authMiddleware.verifyTokenAndAdminAuth,
+  adminController.message
+);
 // home page admin
 router.get(
   "/",

@@ -43,13 +43,6 @@ function handleChange(event) {
   user[event.target.name] = event.target.value;
 }
 
-// ----------------- SocketIO ------------------------//
-// ----------------- SocketIO ------------------------//
-// ----------------- SocketIO ------------------------//
-// ----------------- SocketIO ------------------------//
-// connect to server
-var socket = io("http://localhost:9000");
-
 async function handleLogin(event) {
   event.preventDefault();
   let { ResStatus, ResData } = await loginReq(user);

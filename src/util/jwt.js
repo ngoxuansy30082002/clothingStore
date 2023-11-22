@@ -5,6 +5,8 @@ module.exports = {
   generateAccessToken: (user) => {
     return jwt.sign(
       {
+        username: user.username,
+        email: user.email,
         id: user.id,
         admin: user.admin,
       },
@@ -17,6 +19,8 @@ module.exports = {
   generateRefreshToken: (user) => {
     return jwt.sign(
       {
+        username: user.username,
+        email: user.email,
         id: user.id,
         admin: user.admin,
       },

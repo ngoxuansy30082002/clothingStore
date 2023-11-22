@@ -1,3 +1,4 @@
+const jwt = require("jsonwebtoken");
 const Product = require("../models/Product");
 const Blog = require("../models/Blog");
 const User = require("../models/User");
@@ -300,6 +301,25 @@ class AdminController {
       await Blog.create(req.body);
       // const Blogs = await Blog.find({});
       res.redirect("/admin/Blog");
+    } catch (error) {
+      res.status(500).json(error);
+    }
+  }
+
+  //[GET] /admin/all-user
+  async message(req, res, next) {
+    const accessToken = req.cookies.accessToken;
+    var currentUser;
+    if (accessToken) {
+      jwt.verify(accessToken, process.env.JWT_ACCESS_KEY, (err, user) => {
+        currentUser = user;
+      });
+    }
+    try {
+      res.render("message/message", {
+        showAdminHeaderAndFooter: true,
+        currentUser,
+      });
     } catch (error) {
       res.status(500).json(error);
     }
