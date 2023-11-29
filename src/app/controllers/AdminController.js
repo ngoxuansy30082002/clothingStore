@@ -35,7 +35,7 @@ class AdminController {
       };
       switch (actionFilter) {
         case "shirt":
-          console.log(req.query.action);
+          // console.log(req.query.action);
           products = await Product.find({
             $and: [condition, { catelogy: "Áo" }],
           })
@@ -306,8 +306,8 @@ class AdminController {
     }
   }
 
-  //[GET] /admin/all-user
-  async message(req, res, next) {
+  //[GET] /admin/chat
+  async chat(req, res, next) {
     const accessToken = req.cookies.accessToken;
     var currentUser;
     if (accessToken) {
@@ -316,7 +316,7 @@ class AdminController {
       });
     }
     try {
-      res.render("message/message", {
+      res.render("admin/chat/chat", {
         showAdminHeaderAndFooter: true,
         currentUser,
       });

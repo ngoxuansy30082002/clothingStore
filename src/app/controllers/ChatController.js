@@ -1,8 +1,8 @@
 const jwt = require("jsonwebtoken");
 
-class MessageController {
+class ChatController {
   //[GET] /home
-  async message(req, res, next) {
+  async chat(req, res, next) {
     const accessToken = req.cookies.accessToken;
     var currentUser;
     if (accessToken) {
@@ -11,7 +11,7 @@ class MessageController {
       });
     }
     try {
-      res.render("message/message", {
+      res.render("chat/chat", {
         showHeaderAndFooter: true,
         currentUser,
       });
@@ -20,4 +20,4 @@ class MessageController {
     }
   }
 }
-module.exports = new MessageController();
+module.exports = new ChatController();

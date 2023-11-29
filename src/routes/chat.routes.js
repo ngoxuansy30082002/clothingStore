@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
-const messageController = require("../app/controllers/MessageController");
+const chatController = require("../app/controllers/ChatController");
 const authMiddleware = require("../middlewares/authMiddleware");
 
-router.get("/", authMiddleware.verifyToken, messageController.message);
+router.get("/", authMiddleware.verifyToken, chatController.chat);
 module.exports = router;

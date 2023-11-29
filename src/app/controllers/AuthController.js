@@ -2,6 +2,23 @@ const User = require("../models/User");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
+const os = require("os");
+const networkInterfaces = os.networkInterfaces();
+// Lấy địa chỉ IPv4 của thiết bị
+function getIPv4Address() {
+  for (const key in networkInterfaces) {
+    const interfaceList = networkInterfaces[key];
+    for (const interfaceItem of interfaceList) {
+      if (interfaceItem.family === "IPv4" && !interfaceItem.internal) {
+        return interfaceItem.address;
+      }
+    }
+  }
+  return "Không tìm thấy địa chỉ IPv4";
+}
+var URLSocket = getIPv4Address();
+console.log(URLSocket);
+
 const {
   multipleMongooseToObject,
   shuffleArray,
@@ -35,9 +52,18 @@ class AuthController {
         // });
         // return;
       }
+      if (user.active) {
+        return res.status(404).json("Account is active");
+      }
 
       //username & password correct
       if (user && validPassword) {
+        await User.updateOne(
+          {
+            username: req.body.username,
+          },
+          { active: true }
+        );
         const accessToken = generateAccessToken(user);
         const refreshToken = generateRefreshToken(user);
         res.cookie("refreshToken", refreshToken, {
@@ -55,6 +81,7 @@ class AuthController {
         const { password, ...other } = user._doc; // xóa password trong response
         // res.redirect("/home");
         res.status(200).json({
+          URLSocket,
           other,
           accessToken,
         });
@@ -67,6 +94,12 @@ class AuthController {
   //[GET] /auth/logout
   async logoutUser(req, res, next) {
     try {
+      await User.updateOne(
+        {
+          username: req.user.username,
+        },
+        { active: false }
+      );
       res.clearCookie("accessToken");
       res.redirect("/");
     } catch (error) {
@@ -120,8 +153,25 @@ class AuthController {
     });
   }
 
-  //[GET] /
+  //[GET] /auth
   async loginForm(req, res, next) {
+    const accessToken = req.cookies.accessToken;
+    if (accessToken) {
+      const decoded = jwt.verify(accessToken, process.env.JWT_ACCESS_KEY); // Thay 'your-secret-key' bằng key bạn đã sử dụng khi tạo accessToken
+      const user = decoded.username;
+      console.log(user);
+      try {
+        await User.updateOne(
+          {
+            username: user,
+          },
+          { active: false }
+        );
+        res.clearCookie("accessToken");
+      } catch (error) {
+        res.status(404).json("Error");
+      }
+    }
     res.render("login/loginForm");
   }
 }

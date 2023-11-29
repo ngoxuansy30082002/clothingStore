@@ -17,7 +17,12 @@ const app = express();
 const { Server } = require("socket.io");
 const httpServer = createServer(app);
 const io = new Server(httpServer, {
-  /* options */
+  // connectionStateRecovery: {
+  //   // the backup duration of the sessions and the packets
+  //   maxDisconnectionDuration: Infinity,
+  //   // whether to skip middlewares upon successful recovery
+  //   skipMiddlewares: true,
+  // },
 });
 //
 const port = process.env.PORT || 9000;

@@ -107,9 +107,9 @@ router.post(
   adminController.insertBlog
 );
 router.get(
-  "/message",
+  "/chat",
   authMiddleware.verifyTokenAndAdminAuth,
-  adminController.message
+  adminController.chat
 );
 // home page admin
 router.get(
