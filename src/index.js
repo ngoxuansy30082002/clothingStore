@@ -10,8 +10,15 @@ const route = require("./routes"); //router
 const socketio = require("./serverSocketIO");
 
 const db = require("./config/db.config"); // mongo database
+const User = require("./app/models/User");
 // connect to mongodb
 db.connect();
+async function init() {
+  try {
+    await User.updateMany({}, { active: false });
+  } catch (error) {}
+}
+init();
 
 const app = express();
 const { Server } = require("socket.io");
@@ -52,8 +59,9 @@ app.engine(
 );
 app.set("view engine", "hbs");
 app.set("views", path.join(__dirname, "resources", "views")); // chỉ định đường dẫn thư mục views
+
 // Routes init
-route(app);
+route(app); //
 
 // socketIO
 socketio(io);

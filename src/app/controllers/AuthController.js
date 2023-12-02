@@ -155,23 +155,26 @@ class AuthController {
 
   //[GET] /auth
   async loginForm(req, res, next) {
-    const accessToken = req.cookies.accessToken;
-    if (accessToken) {
-      const decoded = jwt.verify(accessToken, process.env.JWT_ACCESS_KEY); // Thay 'your-secret-key' bằng key bạn đã sử dụng khi tạo accessToken
-      const user = decoded.username;
-      console.log(user);
-      try {
-        await User.updateOne(
-          {
-            username: user,
-          },
-          { active: false }
-        );
-        res.clearCookie("accessToken");
-      } catch (error) {
-        res.status(404).json("Error");
-      }
-    }
+    // const accessToken = req.cookies.accessToken;
+    // if (accessToken) {
+    //   jwt.verify(accessToken, process.env.JWT_ACCESS_KEY, (err, user) => {
+    //     if (err) {
+    //     } else req.user = user;
+    //   });
+    //   const user = req.user;
+    //   console.log(user);
+    //   try {
+    //     await User.updateOne(
+    //       {
+    //         username: user,
+    //       },
+    //       { active: false }
+    //     );
+    //   } catch (error) {
+    //     res.status(404).json("Error");
+    //   }
+    // }
+    res.clearCookie("accessToken");
     res.render("login/loginForm");
   }
 }

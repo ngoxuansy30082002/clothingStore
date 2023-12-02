@@ -2,22 +2,37 @@
 var currentUser = JSON.parse(localStorage.getItem("currentUser")) || null;
 
 var socket = io("http://localhost:9000");
-
+var des = "admin";
 var uname;
+
 $(document).ready(() => {
   socket.emit("chat:user-online", currentUser);
 });
 
 //admin
-socket.on("chat:list-user-online", (users) => {
-  renderListUser(users);
+socket.on("chat:list-user-online", (users, destination, clientCount) => {
+  des = destination;
+  renderListUser(users, clientCount);
 });
-// socket.on("chat:user-offline", (users) => {
-//   console.log(users);
-//   //   renderListUser(users);
-// });
 
-socket.on("chat:message", (payload) => renderMessage("other", payload));
+socket.on("chat:message", (payload) => {
+  if (payload.sender === des || payload.sender === "admin")
+    renderMessage("other", payload);
+});
+
+socket.on("chat:load-message", (payload, destination) => {
+  des = destination;
+  $(".messages").html("");
+  // console.log(payload);
+  // console.log(currentUser.other.username);
+  payload.forEach((message) => {
+    // console.log(message);
+    if (message.sender === currentUser.other.username)
+      renderMessage("my", message);
+    else renderMessage("other", message);
+  });
+  // renderMessage("other", payload);
+});
 
 function renderMessage(type, message) {
   let messageContainer = $(".messages");
@@ -26,7 +41,7 @@ function renderMessage(type, message) {
                 <div class="message my-message">
                     <div>
                         <div class="name">You</div>
-                        <div class="text">${message.text}</div>
+                        <div class="text">${message.message}</div>
                     </div>
                 </div>
         `);
@@ -34,8 +49,8 @@ function renderMessage(type, message) {
     messageContainer.append(`
                  <div class="message other-message">
                     <div>
-                        <div class="name">${message.username}</div>
-                        <div class="text">${message.text}</div>
+                        <div class="name">${message.sender}</div>
+                        <div class="text">${message.message}</div>
                     </div>
                 </div>
       `);
@@ -43,13 +58,4 @@ function renderMessage(type, message) {
   }
   messageContainer.scrollTop =
     messageContainer.scrollHeight - messageContainer.clientHeight;
-}
-function renderListUser(users) {
-  userList.html("");
-  $.each(users, function (_, user) {
-    const listItem = $("<li>")
-      .addClass("user-item")
-      .html(`<strong>${user.username}</strong><br>${user.email}`);
-    userList.append(listItem);
-  });
 }

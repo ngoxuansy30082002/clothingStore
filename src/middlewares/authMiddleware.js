@@ -4,7 +4,6 @@ const authMiddleware = {
   //verify token
   verifyToken: (req, res, next) => {
     const token = `Bearer ${req.cookies.accessToken}`;
-    // console.log(token);
     if (token) {
       const accessToken = token.split(" ")[1]; //Bearer 123456 => accessToken = 123456
       jwt.verify(accessToken, process.env.JWT_ACCESS_KEY, (err, user) => {
