@@ -4,22 +4,25 @@
 </section>
 <section id="blog">
     {{#if blogs}}
-        {{#each blogs}}
-            <div class="blog-box">
-                <div class="blog-img">
-                    <img src="{{this.image}}" alt="{{this.title}}">
-                </div>
-                <div class="blog-details">
-                    <h4>{{this.title}}</h4>
-                    <p>{{this.description}}</p>
-                    <button id="btn-blog-like" class="btn-like" data-blog-id="{{this._id}}"><i class="far fa-heart"></i></button>
-                    {{!-- <a href="#">{{this.slug}}</a> --}}
-                </div>
-                <h1>{{this.date}}</h1>
-            </div>
-        {{/each}}
+    {{#each blogs}}
+    <div class="blog-box">
+        <div class="blog-img">
+            <img src="{{this.image}}" alt="{{this.title}}">
+        </div>
+        <div class="blog-details">
+            <h4>{{this.title}}</h4>
+            <p>{{this.description}}</p>
+            <button class="btn-like" data-blog-id="{{this._id}}">
+                <i class="far fa-heart"></i>
+            </button>
+            <span class="like-count">0</span>
+            {{!-- <a href="#">{{this.slug}}</a> --}}
+        </div>
+        <h1>{{this.date}}</h1>
+    </div>
+    {{/each}}
     {{else}}
-        <p>No blog posts available.</p>
+    <p>No blog posts available.</p>
     {{/if}}
 </section>
 <section id="Pagination" class="section-p1">
@@ -28,17 +31,12 @@
     <a href="#"><i class="fal fa-long-arrow-alt-right"></i></a>
 </section>
 {{>newsletter}}
+<div id="toast">
 
-{{!-- <script src="https://code.jquery.com/jquery-3.6.4.min.js" integrity="sha256-oP6HI/tT8dXzdpTlida4u5Pd47l4JK9f8l1lM6O2LyM=" crossorigin="anonymous"></script> --}}
-
-<script>
-  $(document).ready(function () {
-    $('.btn-like').on('click', function () {
-      $(this).toggleClass('active');
-    });
-  });
-</script>
-
+</div>
+{{!--
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"
+    integrity="sha256-oP6HI/tT8dXzdpTlida4u5Pd47l4JK9f8l1lM6O2LyM=" crossorigin="anonymous"></script> --}}
 <script>
     // Your JavaScript code here
     let navs = document.querySelectorAll("#navbar li a");

@@ -9,6 +9,7 @@ const Blog = new Schema(
     description: { type: String },
     image: { type: String },
     slug: { type: String, slug: "title" },
+    like: { type: Number },
   },
   { timestamps: true }
 );
