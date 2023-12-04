@@ -1,10 +1,14 @@
 const chatHandler = require("./chat");
 const feedbackHandler = require("./feedback");
+const blogHandler = require("./blog");
+
 
 function socketio(io) {
   const onConnection = (socket) => {
     chatHandler(io, socket);
     feedbackHandler(io, socket);
+    blogHandler(io, socket);
+
     //handler
   };
 

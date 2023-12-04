@@ -1,70 +1,46 @@
 <section id="page-header" class="blog-header">
     <h2>#readmore</h2>
-    <p>Real all studies about our product!</p>
+    <p>Read all studies about our product!</p>
 </section>
 <section id="blog">
+    {{#if blogs}}
+    {{#each blogs}}
     <div class="blog-box">
         <div class="blog-img">
-            <img src="img/blog/b1.jpg" src="">
+            <img src="{{this.image}}" alt="{{this.title}}">
         </div>
         <div class="blog-details">
-            <h4>THe cotton-Jersey Zip-Up hoodie</h4>
-            <p>Wwaooooo thật là sexy girlll, Có một cô gái vô cùng xinh đẹp với nụ cười tươi tắn và đôi mắt long lanh.
-                Ngoại hình của cô gái rất quyến rũ và thu hút mọi ánh nhìn. Không chỉ vẻ ngoại hình, cô gái còn có một
-                tâm hồn tốt và tinh thần lạc quan, luôn lan tỏa sự ấm áp và lạc quan đến mọi người xung quanh...</p>
-            <a href="#">COUNTINUE READING</a>
+            <h4>{{this.title}}</h4>
+            <p>{{this.description}}</p>
+            <button class="btn-like" data-blog-id="{{this._id}}">
+                <i class="far fa-heart"></i>
+            </button>
+            <span class="like-count">0</span>
+            {{!-- <a href="#">{{this.slug}}</a> --}}
         </div>
-        <h1>15/08</h1>
+        <h1>{{this.date}}</h1>
     </div>
-    <div class="blog-box">
-        <div class="blog-img">
-            <img src="img/blog/b2.jpg" src="">
-        </div>
-        <div class="blog-details">
-            <h4>THe cotton-Jersey Zip-Up hoodie</h4>
-            <p>Wwaooooo thật là sexy girlll, Có một cô gái vô cùng xinh đẹp với nụ cười tươi tắn và đôi mắt long lanh.
-                Ngoại hình của cô gái rất quyến rũ và thu hút mọi ánh nhìn. Không chỉ vẻ ngoại hình, cô gái còn có một
-                tâm hồn tốt và tinh thần lạc quan, luôn lan tỏa sự ấm áp và lạc quan đến mọi người xung quanh...</p>
-            <a href="#">COUNTINUE READING</a>
-        </div>
-        <h1>15/08</h1>
-    </div>
-    <div class="blog-box">
-        <div class="blog-img">
-            <img src="img/blog/b3.jpg" src="">
-        </div>
-        <div class="blog-details">
-            <h4>THe cotton-Jersey Zip-Up hoodie</h4>
-            <p>Wwaooooo thật là sexy girlll, Có một cô gái vô cùng xinh đẹp với nụ cười tươi tắn và đôi mắt long lanh.
-                Ngoại hình của cô gái rất quyến rũ và thu hút mọi ánh nhìn. Không chỉ vẻ ngoại hình, cô gái còn có một
-                tâm hồn tốt và tinh thần lạc quan, luôn lan tỏa sự ấm áp và lạc quan đến mọi người xung quanh...</p>
-            <a href="#">COUNTINUE READING</a>
-        </div>
-        <h1>15/08</h1>
-    </div>
-    <div class="blog-box">
-        <div class="blog-img">
-            <img src="img/blog/b4.jpg" src="">
-        </div>
-        <div class="blog-details">
-            <h4>THe cotton-Jersey Zip-Up hoodie</h4>
-            <p>Wwaooooo thật là sexy girlll, Có một cô gái vô cùng xinh đẹp với nụ cười tươi tắn và đôi mắt long lanh.
-                Ngoại hình của cô gái rất quyến rũ và thu hút mọi ánh nhìn. Không chỉ vẻ ngoại hình, cô gái còn có một
-                tâm hồn tốt và tinh thần lạc quan, luôn lan tỏa sự ấm áp và lạc quan đến mọi người xung quanh...</p>
-            <a href="#">COUNTINUE READING</a>
-        </div>
-        <h1>15/08</h1>
-    </div>
+    {{/each}}
+    {{else}}
+    <p>No blog posts available.</p>
+    {{/if}}
 </section>
-<section id="Panigation" class="section-p1">
+<section id="Pagination" class="section-p1">
     <a href="#">1</a>
     <a href="#">2</a>
     <a href="#"><i class="fal fa-long-arrow-alt-right"></i></a>
 </section>
 {{>newsletter}}
+<div id="toast">
 
+</div>
+{{!--
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"
+    integrity="sha256-oP6HI/tT8dXzdpTlida4u5Pd47l4JK9f8l1lM6O2LyM=" crossorigin="anonymous"></script> --}}
 <script>
-    let navs = document.querySelectorAll("#navbar li a")
-    navs[2].classList.add("active")
+    // Your JavaScript code here
+    let navs = document.querySelectorAll("#navbar li a");
+    navs[2].classList.add("active");
 </script>
 <script src="/js/clientSocketIO/common.js"></script>
+<script src="/js/clientSocketIO/blog/blog.js"></script>

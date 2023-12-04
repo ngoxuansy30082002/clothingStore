@@ -2108,3 +2108,15 @@ footer .copyright {
         box-shadow: inset 3px -3px 4px var(--active-shadow), inset 0 8px 10px var(--active-shadow-angry);
     }
 }
+
+.btn-like {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    font-size: 1.5em;
+    transition: color 0.3s ease-in-out;
+  }
+  
+  .btn-like.active {
+    color: red; /* Màu đỏ hoặc màu bạn muốn khi đã nhấn */
+  }
