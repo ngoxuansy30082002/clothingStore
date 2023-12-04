@@ -292,12 +292,13 @@ class AdminController {
   //[POST] /admin/blog/create
   async insertBlog(req, res, next) {
     try {
-      // console.log(req.body);
       let createBlog = req.body;
       if (createBlog.size) {
         createBlog.size = createBlog.size.split(",");
         createBlog.size = createBlog.size.map((size) => size.trim());
       }
+
+      req.body.like = 0;
       await Blog.create(req.body);
       // const Blogs = await Blog.find({});
       res.redirect("/admin/Blog");
