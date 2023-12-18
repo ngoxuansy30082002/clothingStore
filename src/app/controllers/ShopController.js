@@ -8,24 +8,88 @@ const {
 class ShopController {
   // [GET] /shop/
   async shop(req, res, next) {
+    const regex = new RegExp(req.query.search, "i");
+    const actionFilter = req.cookies.actionFilter;
     const page = parseInt(req.query.page) || 1;
     const pageSize = 8;
+    var products;
+    var countProducts;
     try {
-      const product = await Product.find({})
-        .skip((page - 1) * pageSize)
-        .limit(pageSize);
-      const countProducts = await Product.countDocuments({});
+      if (req.query.search) {
+        products = await Product.find({ name: { $regex: regex } });
+        countProducts = await Product.countDocuments({
+          name: { $regex: regex },
+        });
+      } else {
+        switch (actionFilter) {
+          case "shirt":
+            products = await Product.find({
+              catelogy: "Áo",
+            })
+              .skip((page - 1) * pageSize)
+              .limit(pageSize);
+            countProducts = await Product.countDocuments({
+              catelogy: "Áo",
+            });
+            break;
+          case "pants":
+            products = await Product.find({
+              catelogy: "Quần",
+            })
+              .skip((page - 1) * pageSize)
+              .limit(pageSize);
+            countProducts = await Product.countDocuments({
+              catelogy: "Quần",
+            });
+            break;
+          case "accessory":
+            products = await Product.find({
+              catelogy: "Phụ kiện",
+            })
+              .skip((page - 1) * pageSize)
+              .limit(pageSize);
+            countProducts = await Product.countDocuments({
+              catelogy: "Phụ kiện",
+            });
+            break;
+          default:
+            products = await Product.find({})
+              .skip((page - 1) * pageSize)
+              .limit(pageSize);
+            countProducts = await Product.countDocuments({});
+            break;
+        }
+      }
       const countPage =
         countProducts % pageSize === 0
           ? countProducts / pageSize
           : countProducts / pageSize + 1;
       const pages = Array.from({ length: countPage }, (_, index) => index + 1);
-      // console.log(pages);
+
       res.render("shop/shop", {
-        product: multipleMongooseToObject(product),
+        product: multipleMongooseToObject(products),
         pages,
         showHeaderAndFooter: true,
+        actionFilter: actionFilter,
       });
+    } catch (error) {
+      res.status(500).json({ error: "Internal Server Error" });
+    }
+  }
+  async shopFilter(req, res, next) {
+    try {
+      const actionFilter = req.params.slug;
+      if (actionFilter === "all")
+        res.clearCookie("actionFilter", {
+          path: `/shop/filter/${actionFilter}`,
+        });
+      res.cookie("actionFilter", actionFilter, {
+        httpOnly: true,
+        secure: false,
+        path: "/",
+        samSite: "strict",
+      });
+      res.redirect("/shop");
     } catch (error) {
       res.status(500).json({ error: "Internal Server Error" });
     }
@@ -49,16 +113,5 @@ class ShopController {
       res.status(500).json({ error: "Internal Server Error" });
     }
   }
-
-  // //[POST] /courses/store
-  // async store(req, res, next) {
-  //   try {
-  //     console.log(req.query);
-  //     await Course.insertMany([req.body]); // chèn dữ liệu vào database
-  //     res.redirect("/"); // chuyển hướng về lại home
-  //   } catch (error) {
-  //     next(error);
-  //   }
-  // }
 }
 module.exports = new ShopController();

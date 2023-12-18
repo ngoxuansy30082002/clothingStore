@@ -1,7 +1,27 @@
+<link href="https://fonts.googleapis.com/css2?family=Lato&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/css/button.css">
+
+
 <section id="page-header">
     <h2>#Stay Home</h2>
     <p>Save more with coupons & up to 70% off!</p>
 </section>
+<h2 style="margin: 40px 80px 0px;">
+    Tất cả sản phẩm
+</h2>
+<section id="shop-filter">
+    <h3>Bộ lọc:</h3>
+    <button value="all" class="js-filter-btn custom-btn btn-8"><span>Tất cả</span></button>
+    <button value="shirt" class="js-filter-btn custom-btn btn-16"><span>Áo</span></button>
+    <button value="pants" class="js-filter-btn custom-btn btn-16"><span>Quần</span></button>
+    <button value="accessory" class="js-filter-btn custom-btn btn-16"><span>Phụ kiện</span></button>
+    <form class="search-container">
+        <input id="searchInput" name="search" type="text" class="search-box" placeholder="Tìm kiếm sản phẩm...">
+        <button class="js-search-btn custom-btn btn-6"><span>Search</span></button>
+    </form>
+</section>
+<form name="filter-product" method="GET"></form>
+
 <section id="product1" class="section-p1">
     <div class="pro-container">
         {{#each product}}
@@ -21,7 +41,7 @@
                     <i class="fas fa-star"></i>
                     <i class="fas fa-star"></i>
                 </div>
-                <h4>{{this.price}}đ</h4>
+                <h4>{{formatPrice this.price}}đ</h4>
             </div>
             <a href="#">
                 <i class="fal fa-shopping-cart cart"></i>
@@ -42,5 +62,33 @@
     let navs = document.querySelectorAll("#navbar li a")
     navs[1].classList.add("active")
 
+</script>
+
+<script>
+    var actionFilter = "{{actionFilter}}";
+    var buttons = document.querySelectorAll('.js-filter-btn');
+
+    buttons.forEach(function (button) {
+        if (button.value === actionFilter) {
+            button.classList.remove('btn-16');
+            button.classList.add('btn-8');
+        } else {
+            button.classList.remove('btn-8')
+            button.classList.add('btn-16');
+        }
+    })
+
+    document.addEventListener('DOMContentLoaded', function () {
+        var filterFormProduct = document.forms['filter-product']
+
+        buttons.forEach(function (button) {
+            button.addEventListener('click', function () {
+                var selectedValue = button.value;
+                filterFormProduct.action = '/shop/filter/' + selectedValue
+                filterFormProduct.submit()
+            });
+        });
+
+    });
 </script>
 <script src="/js/clientSocketIO/common.js"></script>
