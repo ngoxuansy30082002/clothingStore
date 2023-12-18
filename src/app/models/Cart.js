@@ -13,7 +13,6 @@ const CartSchema = new Schema(
       type: Number, // Số lượng sản phẩm trong giỏ hàng
       required: true,
     },
-
     size: {
       type: [String],
       default: [],

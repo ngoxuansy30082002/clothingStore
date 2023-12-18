@@ -19,36 +19,34 @@
             </tr>
         </thead>
         <tbody>
-            {{#each carts as |cart|}}
-    <tr>
-      {{#each (lookup ../ "products") as |product|}}
-        <td><a href="#"><i class="far fa-times-circle"></i></a></td>
-        <td><img src={{product.image.[0]}} alt={{product.productName}}></td>
-        <td>{{product.name}}</td>
-        <td>{{product.price}}</td>
-        <td><input type="number" value={{cart.quantity}} class="quantity-input"></td>
-        <td>{{product.price}}</td>
-      {{/each}}
-    </tr>
-  {{/each}}
+            {{#each carts}}
+            <tr>
+                <td><a href="#"><i class="far fa-times-circle"></i></a></td>
+                <td><img src={{this.image.[0]}} alt={{this.name}}></td>
+                <td>{{this.name}}</td>
+                <td>{{this.price}}</td>
+                <td><input type="number" value={{this.quantity}} class="quantity-input"></td>
+                <td>{{this.price}}</td>
+            </tr>
+            {{/each}}
 
-            
+
 
             {{!-- {{#each carts}}
             {{#each ../products}}
-                <tr>
-                    <td><a href="#"><i class="far fa-times-circle"></i></a></td>
-                    <td><img src={{this.image.[0]}} alt={{this.productName}}></td>
-                    <td>{{this.name}}</td>
-                    <td>{{this.price}}</td>
-                    <td><input type="number" value={{../this.quantity}} class="quantity-input"></td>
-                    <td>{{this.price}}</td>
-                </tr>
+            <tr>
+                <td><a href="#"><i class="far fa-times-circle"></i></a></td>
+                <td><img src={{this.image.[0]}} alt={{this.productName}}></td>
+                <td>{{this.name}}</td>
+                <td>{{this.price}}</td>
+                <td><input type="number" value={{../this.quantity}} class="quantity-input"></td>
+                <td>{{this.price}}</td>
+            </tr>
             {{/each}}
             {{/each}} --}}
 
 
-           
+
         </tbody>
     </table>
 </section>

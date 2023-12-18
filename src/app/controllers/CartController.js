@@ -12,17 +12,18 @@ class CartController {
   async index(req, res, next) {
     try {
       const user = req.user;
-      // Truy xuất tất cả mục trong giỏ hàng từ cơ sở dữ liệu
-      let carts = await Cart.find({ userId: user.id });
-      let products = [];
-      for (let cart of carts) {
+      const carts = multipleMongooseToObject(
+        await Cart.find({ userId: user.id })
+      );
+      for (const cart of carts) {
         const product = await Product.findById(cart.productId);
-        products.push(product);
+        cart.name = product.name;
+        cart.image = product.image;
+        cart.price = product.price;
       }
       res.render("cart/cart", {
         showHeaderAndFooter: true,
-        carts: multipleMongooseToObject(carts),
-        products: multipleMongooseToObject(products),
+        carts: carts,
       });
     } catch (error) {
       next(error);
