@@ -12,7 +12,7 @@
             <tr>
                 <td>Remove</td>
                 <td>Image</td>
-                <td>Product</td>
+                <td>Name</td>
                 <td>Price</td>
                 <td>Quantity</td>
                 <td>Subtotal</td>
@@ -24,29 +24,11 @@
                 <td><a href="#"><i class="far fa-times-circle"></i></a></td>
                 <td><img src={{this.image.[0]}} alt={{this.name}}></td>
                 <td>{{this.name}}</td>
-                <td>{{this.price}}</td>
+                <td>{{formatPrice this.price}} VNĐ</td>
                 <td><input type="number" value={{this.quantity}} class="quantity-input"></td>
-                <td>{{this.price}}</td>
+                <td>{{formatPrice (mul this.quantity this.price)}} VNĐ</td>
             </tr>
             {{/each}}
-
-
-
-            {{!-- {{#each carts}}
-            {{#each ../products}}
-            <tr>
-                <td><a href="#"><i class="far fa-times-circle"></i></a></td>
-                <td><img src={{this.image.[0]}} alt={{this.productName}}></td>
-                <td>{{this.name}}</td>
-                <td>{{this.price}}</td>
-                <td><input type="number" value={{../this.quantity}} class="quantity-input"></td>
-                <td>{{this.price}}</td>
-            </tr>
-            {{/each}}
-            {{/each}} --}}
-
-
-
         </tbody>
     </table>
 </section>
@@ -64,7 +46,7 @@
         <table>
             <tr>
                 <td>Cart Subtotal</td>
-                <td>$ 355</td>
+                <td>{{formatPrice subTotal}} VNĐ</td>
             </tr>
             <tr>
                 <td>Shipping</td>
@@ -72,7 +54,7 @@
             </tr>
             <tr>
                 <td><strong>Totals</strong></td>
-                <td><strong>$ 355</strong></td>
+                <td><strong>{{formatPrice subTotal}} VNĐ</strong></td>
             </tr>
         </table>
         <button class="normal">Proceed to Checkout</button>

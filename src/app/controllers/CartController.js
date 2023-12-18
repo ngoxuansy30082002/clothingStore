@@ -15,15 +15,18 @@ class CartController {
       const carts = multipleMongooseToObject(
         await Cart.find({ userId: user.id })
       );
+      let subTotal = 0;
       for (const cart of carts) {
         const product = await Product.findById(cart.productId);
         cart.name = product.name;
         cart.image = product.image;
         cart.price = product.price;
+        subTotal += cart.price * cart.quantity;
       }
       res.render("cart/cart", {
         showHeaderAndFooter: true,
         carts: carts,
+        subTotal,
       });
     } catch (error) {
       next(error);

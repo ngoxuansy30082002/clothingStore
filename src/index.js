@@ -46,6 +46,20 @@ app.engine(
     extname: ".hbs",
     helpers: {
       sum: (a, b) => a + b,
+      mul: (a, b) => a * b,
+      formatPrice: (price) => {
+        const numberString = price.toString();
+        const length = numberString.length;
+        const numGroups = Math.ceil(length / 3);
+        const groups = [];
+        for (let i = 0; i < numGroups; i++) {
+          const start = length - (i + 1) * 3;
+          const end = start + 3;
+          groups.push(numberString.slice(Math.max(0, start), end));
+        }
+        const result = groups.reverse().join(".");
+        return result;
+      },
       getUserInfo: (user, field) => typeof user,
     },
   })
