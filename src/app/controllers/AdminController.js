@@ -3,6 +3,7 @@ const Product = require("../models/Product");
 const Blog = require("../models/Blog");
 const User = require("../models/User");
 const Feedback = require("../models/Feedback");
+const Cart = require("../models/Cart");
 
 const {
   multipleMongooseToObject,
@@ -324,6 +325,28 @@ class AdminController {
     } catch (error) {
       res.status(500).json(error);
     }
+  }
+
+  //[GET] /admin/cart
+  async cart(req, res, next) {
+    try {
+      const carts = multipleMongooseToObject(await Cart.find({}));
+      let subTotal = 0;
+      for (const cart of carts) {
+        const product = singleMongooseToObject(
+          await Product.findById(cart.productId)
+        );
+        const user = singleMongooseToObject(await User.findById(cart.userId));
+        cart.product = product;
+        cart.user = user;
+        subTotal += cart.price * cart.quantity;
+      }
+      res.render("admin/cart/cart", {
+        showAdminHeaderAndFooter: true,
+        carts: carts,
+        subTotal: subTotal,
+      });
+    } catch (error) {}
   }
 
   //[GET] /admin/all-user
