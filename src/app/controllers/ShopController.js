@@ -52,6 +52,16 @@ class ShopController {
               catelogy: "Phụ kiện",
             });
             break;
+          case "shoes":
+            products = await Product.find({
+              catelogy: "Giày",
+            })
+              .skip((page - 1) * pageSize)
+              .limit(pageSize);
+            countProducts = await Product.countDocuments({
+              catelogy: "Giày",
+            });
+            break;
           default:
             products = await Product.find({})
               .skip((page - 1) * pageSize)
