@@ -27,13 +27,13 @@
         <h3>{{product.brand}}</h3>
         <h2>{{product.name}}</h2>
         <h2>${{product.price}}</h2>
-        <select>
+        <form action="/cart/add-to-cart" method="post"> <!-- Form để gửi dữ liệu khi nhấn nút "Add To Cart" -->
+        <select name="size">
             <option>Select Size</option>
             {{#each product.size}}
-            <option>{{this}}</option>
+            <option value="{{this}}">{{this}}</option>
             {{/each}}
         </select>
-        <form action="/cart/add-to-cart" method="post"> <!-- Form để gửi dữ liệu khi nhấn nút "Add To Cart" -->
          <input type="hidden" name="productId" value="{{product._id}}"> <!-- Sử dụng _id của sản phẩm làm productId -->
          <input type="number" name="quantity" value="1"> <!-- Mặc định số lượng là 1, bạn có thể thay đổi theo yêu cầu -->
          <button class="normal">Add To Cart</button>

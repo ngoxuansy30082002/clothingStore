@@ -19,7 +19,7 @@ class CartController {
       for (const cart of carts) {
         const product = await Product.findById(cart.productId);
         cart.name = product.name;
-        cart.image = product.image;
+        cart.image = product.image.shift();
         cart.price = product.price;
         subTotal += cart.price * cart.quantity;
       }
@@ -36,19 +36,52 @@ class CartController {
   // [POST] /cart/add-to-cart
   async addToCart(req, res) {
     try {
-      const { productId, quantity } = req.body;
-      const product = await Product.findOne({ _id: productId });
+      const { productId, quantity, size } = req.body;
+      if (size !== "Select Size") {
+        const product = await Product.findOne({ _id: productId });
+        const existingCartItem = await Cart.findOne({
+          productId: productId,
+          userId: req.user.id,
+        });
 
-      const cartItem = new Cart({
-        productId: product._id,
-        userId: req.user.id,
-        quantity: quantity,
-      });
-
-      const savedCartItem = await cartItem.save();
+        if (existingCartItem) {
+          // Nếu sản phẩm đã tồn tại trong giỏ hàng
+          if (existingCartItem.size === size) {
+            // Nếu sản phẩm có cùng size, tăng quantity lên 1
+            existingCartItem.quantity += parseInt(quantity);
+            await existingCartItem.save();
+          } else {
+            // Nếu sản phẩm có size khác, thêm sản phẩm mới vào giỏ hàng với size mới
+            const cartItem = new Cart({
+              productId: product._id,
+              userId: req.user.id,
+              quantity: quantity,
+              size: size,
+            });
+            await cartItem.save();
+          }
+        } else {
+          // Nếu sản phẩm chưa tồn tại trong giỏ hàng, thêm sản phẩm mới vào giỏ hàng
+          const cartItem = new Cart({
+            productId: product._id,
+            userId: req.user.id,
+            quantity: quantity,
+            size: size,
+          });
+          await cartItem.save();
+        }
+      }
       res.redirect("back");
     } catch (error) {
       res.status(500).json({ error: "Internal server error" });
+    }
+  }
+  async deletecart(req, res, next) {
+    try {
+      await Cart.deleteOne({ _id: req.params.id });
+      res.redirect("back");
+    } catch (error) {
+      res.status(500).json(error);
     }
   }
 }

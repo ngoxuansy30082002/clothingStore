@@ -1,68 +1,178 @@
+<link
+  href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
+  rel="stylesheet"
+  integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
+  crossorigin="anonymous"
+/>
 <section id="page-header" class="about-header">
 
-    <h2>#Let's_talk</h2>
+  <h2>#Let's_talk</h2>
 
-    <p>LEAVE A MESSAGE, WE LOVE TO HEAR FROM YOU!</p>
+  <p>LEAVE A MESSAGE, WE LOVE TO HEAR FROM YOU!</p>
 
 </section>
 
-<section id="cart" class="section-p1">
-    <table width="100%">
-        <thead>
-            <tr>
-                <td>Remove</td>
-                <td>Image</td>
-                <td>Name</td>
-                <td>Price</td>
-                <td>Quantity</td>
-                <td>Subtotal</td>
-            </tr>
-        </thead>
-        <tbody>
-            {{#each carts}}
-            <tr>
-                <td><a href="#"><i class="far fa-times-circle"></i></a></td>
-                <td><img src={{this.image.[0]}} alt={{this.name}}></td>
-                <td>{{this.name}}</td>
-                <td>{{formatPrice this.price}} VNĐ</td>
-                <td><input type="number" value={{this.quantity}} class="quantity-input"></td>
-                <td>{{formatPrice (mul this.quantity this.price)}} VNĐ</td>
-            </tr>
-            {{/each}}
-        </tbody>
-    </table>
+<section id="" class="section-p1">
+  <table class="table table-borderless" table width="100%">
+    <thead>
+      <tr>
+        <th scope="col">Remove</th>
+        <th scope="col">Iamge</th>
+        <th scope="col">Name</th>
+        <th scope="col">Size</th>
+        <th scope="col">Price</th>
+        <th scope="col">Quantity</th>
+        <th scope="col">Subtotal</th>
+      </tr>
+    </thead>
+    <tbody class="table-group-divider">
+      {{#each carts}}
+        <tr class="cart-list">
+          <td><a href="#"><i
+                class="far fa-times-circle"
+                data-bs-toggle="modal"
+                data-bs-id="{{this._id}}"
+                data-bs-target="#delete-cart-modal"
+              ></i></a></td>
+          <td><img src={{this.image}} alt={{this.name}} /></td>
+          <td>{{this.name}}</td>
+          <td>{{this.size}}</td>
+          <td>{{formatPrice this.price}} VNĐ</td>
+          <td>{{this.quantity}} </td>
+          <td>{{formatPrice (mul this.quantity this.price)}} VNĐ</td>
+        </tr>
+      {{/each}}
+    </tbody>
+  </table>
+  {{!-- <table width="100%">
+    <thead>
+      <tr>
+        <td>Remove</td>
+        <td>Image</td>
+        <td>Name</td>
+        <td>Size</td>
+        <td>Price</td>
+        <td>Quantity</td>
+        <td>Subtotal</td>
+      </tr>
+    </thead>
+    <tbody>
+      {{#each carts}}
+        <tr class="cart-list">
+          <td><a href="#"><i
+                class="far fa-times-circle"
+                data-bs-toggle="modal"
+                data-bs-id="{{this._id}}"
+                data-bs-target="#delete-cart-modal"
+              ></i></a></td>
+          <td><img src={{this.image}} alt={{this.name}} /></td>
+          <td>{{this.name}}</td>
+          <td>{{this.size}}</td>
+          <td>{{formatPrice this.price}} VNĐ</td>
+          <td>{{this.quantity}} </td>
+          <td>{{formatPrice (mul this.quantity this.price)}} VNĐ</td>
+        </tr>
+      {{/each}}
+    </tbody>
+  </table> --}}
 </section>
 
 <section id="cart-add" class="section-p1">
-    <div id="coupon">
-        <h3>Apply coupon</h3>
-        <div>
-            <input type="text" placeholder="Enter Your Coupon">
-            <button class="normal">Apply</button>
-        </div>
+  <div id="coupon">
+    <h3>Apply coupon</h3>
+    <div>
+      <input type="text" placeholder="Enter Your Coupon" />
+      <button class="normal">Apply</button>
     </div>
-    <div id="subtotal">
-        <h3>Cart Totals</h3>
-        <table>
-            <tr>
-                <td>Cart Subtotal</td>
-                <td>{{formatPrice subTotal}} VNĐ</td>
-            </tr>
-            <tr>
-                <td>Shipping</td>
-                <td>Free</td>
-            </tr>
-            <tr>
-                <td><strong>Totals</strong></td>
-                <td><strong>{{formatPrice subTotal}} VNĐ</strong></td>
-            </tr>
-        </table>
-        <button class="normal">Proceed to Checkout</button>
-    </div>
+  </div>
+  <div id="subtotal">
+    <h3>Cart Totals</h3>
+    <table>
+      <tr>
+        <td>Cart Subtotal</td>
+        <td>{{formatPrice subTotal}} VNĐ</td>
+      </tr>
+      <tr>
+        <td>Shipping</td>
+        <td>Free</td>
+      </tr>
+      <tr>
+        <td><strong>Totals</strong></td>
+        <td><strong>{{formatPrice subTotal}} VNĐ</strong></td>
+      </tr>
+    </table>
+    <button class="normal">Proceed to Checkout</button>
+  </div>
 </section>
 
+{{! Confirm delete  cart }}
+<div
+  id="delete-cart-modal"
+  class="modal fade"
+  id="exampleModal"
+  tabindex="-1"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Xóa sản phẩm</h1>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <p>Bạn có chắc xóa sản phẩm này không.</p>
+      </div>
+      <div class="modal-footer">
+        <button
+          id="confirm-btn-delete-cart"
+          type="button"
+          class="btn btn-primary"
+        >Xóa sp</button>
+        <button
+          type="button"
+          class="btn btn-danger"
+          data-bs-dismiss="modal"
+        >Hủy</button>
+
+      </div>
+    </div>
+  </div>
+</div>
 <script>
-    let navs = document.querySelectorAll("#navbar li a")
-    navs[5].classList.add("active")
+  let navs = document.querySelectorAll("#navbar li a")
+  navs[5].classList.add("active")
 </script>
+
+<form name="delete-form-cart" method="POST"></form>
+<script>
+  var btnDeletecart = document.getElementById('confirm-btn-delete-cart') var
+  productId var deleteFormCart = document.forms['delete-form-cart'] var
+  deleteModal = document.getElementById('delete-cart-modal')
+  deleteModal.addEventListener('show.bs.modal', function (event) { var button =
+  event.relatedTarget productId = button.getAttribute('data-bs-id') })
+  btnDeletecart.onclick = function () { deleteFormCart.action = '/cart/cart/' +
+  productId + '?_method=DELETE' deleteFormCart.submit()}
+</script>
+
 <script src="/js/clientSocketIO/common.js"></script>
+<script
+  src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+  integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+  crossorigin="anonymous"
+></script>
+<script
+  src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"
+  integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB"
+  crossorigin="anonymous"
+></script>
+<script
+  src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js"
+  integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13"
+  crossorigin="anonymous"
+></script>

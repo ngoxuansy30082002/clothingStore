@@ -8,5 +8,6 @@ router.post(
   authMiddleware.verifyToken,
   cartController.addToCart
 );
+router.delete("/cart/:id", cartController.deletecart);
 router.get("/", authMiddleware.verifyToken, cartController.index);
 module.exports = router;
