@@ -11,7 +11,7 @@ class ShopController {
     const regex = new RegExp(req.query.search, "i");
     const actionFilter = req.cookies.actionFilter;
     const page = parseInt(req.query.page) || 1;
-    const pageSize = 8;
+    const pageSize = 12;
     var products;
     var countProducts;
     try {

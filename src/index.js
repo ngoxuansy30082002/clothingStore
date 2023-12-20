@@ -61,6 +61,7 @@ app.engine(
         return result;
       },
       getUserInfo: (user, field) => typeof user,
+      lastItem: (arr) => arr.shift(),
     },
   })
 );
