@@ -20,6 +20,14 @@ const CartSchema = new Schema(
     userId: {
       type: mongoose.Schema.Types.ObjectId,
     },
+    paid: {
+      type: Boolean, // Số lượng sản phẩm trong giỏ hàng
+      default: false,
+    },
+    delivered: {
+      type: Boolean, // Số lượng sản phẩm trong giỏ hàng
+      default: false,
+    },
     // Các trường thông tin khác liên quan đến sản phẩm trong giỏ hàng
   },
   { timestamps: true }
