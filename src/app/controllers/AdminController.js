@@ -353,7 +353,10 @@ class AdminController {
   async getAllUser(req, res, next) {
     try {
       const users = await User.find({});
-      res.status(200).json(users);
+      res.render("admin/user/user", {
+        showAdminHeaderAndFooter: true,
+        users: multipleMongooseToObject(users),
+      });
     } catch (error) {
       res.status(500).json(error);
     }

@@ -1,52 +1,27 @@
-<link
-  href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
-  rel="stylesheet"
-  integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
-  crossorigin="anonymous"
-/>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+  integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous" />
 <link rel="stylesheet" href="/css/admin.css" />
 
-<a
-  style="margin-left:80px; margin-top:40px; display:block; padding-bottom: 10px;font-weight:700"
-  href="/admin/product/trash"
-> <i class="fa-solid fa-trash"></i> Thùng rác ({{productDeleted}})</a>
+<a style="margin-left:80px; margin-top:40px; display:block; padding-bottom: 10px;font-weight:700"
+  href="/admin/product/trash"> <i class="fa-solid fa-trash"></i> Thùng rác ({{productDeleted}})</a>
 
-<form
-  class="admin__product"
-  method="POST"
-  action="/admin/product/handle-filter"
->
+<form class="admin__product" method="POST" action="/admin/product/handle-filter">
   <h6 style="display:inline-block; padding: 8px 8px 0px;">Lọc theo: </h6>
-  <select
-    style=" display:inline-block; margin-right:10px;width:200px;"
-    class="form-select form-select-sm"
-    aria-label=".form-select-sm example"
-    name="filter"
-    required
-  >
+  <select style=" display:inline-block; margin-right:10px;width:200px;" class="form-select form-select-sm"
+    aria-label=".form-select-sm example" name="filter" required>
     <option value="all" selected>Tất cả</option>
     <option value="shirt">Áo</option>
     <option value="pants">Quần</option>
   </select>
-  <button
-    id=""
-    style="display:inline-block; margin-right:10px;height:30px;"
-    class="btn btn-primary btn-sm"
-  >Áp dụng</button>
+  <button id="" style="display:inline-block; margin-right:10px;height:30px;" class="btn btn-primary btn-sm">Áp
+    dụng</button>
 </form>
 
-<form
-  class="admin__product"
-  method="POST"
-  action="/admin/product/handle-multi-form"
->
+<form class="admin__product" method="POST" action="/admin/product/handle-multi-form">
   <div style="position: relative;margin-bottom:20px;">
     <h3 style="display: inline-block;">Tất cả sản phẩm ({{productNotDeleted}})</h3>
     <button type="button" class="btn btn-primary btn-sm add_product_btn">
-      <a
-        style="text-decoration: none; color:white;"
-        href="/admin/product/create"
-      >Thêm sản phẩm</a>
+      <a style="text-decoration: none; color:white;" href="/admin/product/create">Thêm sản phẩm</a>
     </button>
   </div>
   <div class="d-flex align-items-center">
@@ -56,28 +31,18 @@
         Chọn tất cả
       </label>
     </div>
-    <select
-      style="margin-right:10px;width:200px;"
-      class="form-select form-select-sm"
-      aria-label=".form-select-sm example"
-      name="action"
-      required
-    >
+    <select style="margin-right:10px;width:200px;" class="form-select form-select-sm"
+      aria-label=".form-select-sm example" name="action" required>
       <option value="" selected> -- Chọn hành động -- </option>
       <option value="delete">Xóa</option>
     </select>
-    <button
-      id="check-submit-btn"
-      style="margin-right:10px;height:30px;"
-      class="btn btn-primary btn-sm disabled"
-    >Áp dụng</button>
+    <button id="check-submit-btn" style="margin-right:10px;height:30px;" class="btn btn-primary btn-sm disabled">Áp
+      dụng</button>
   </div>
   <table class="table">
     <thead>
       <tr>
-        <th class="admin__product__stt" scope="col"><i
-            class="fa-solid fa-check"
-          ></i></th>
+        <th class="admin__product__stt" scope="col"><i class="fa-solid fa-check"></i></th>
         <th class="admin__product__stt" scope="col">#</th>
         <th class="admin__product__image" scope="col">Ảnh</th>
         <th class="admin__product__name" scope="col">Tên sản phẩm</th>
@@ -88,109 +53,70 @@
     </thead>
     <tbody>
       {{#each products}}
-        <tr>
-          <td>
-            <div style="margin-right:10px;" class="form-check">
-              <input
-                class="form-check-input"
-                type="checkbox"
-                name="productIds[]"
-                value="{{this._id}}"
-              />
-            </div>
-          </td>
-          <th scope="row">{{sum @index 1}}</th>
-          <td><img
-              class="admin__product__img"
-              src={{lastItem this.image}}
-              alt=""
-            /></td>
-          <td>{{this.name}}
-            <br />
-            <a href="/admin/product/{{this._id}}/feedback">Xem feedback</a>
-          </td>
-          <td>{{this.catelogy}}</td>
-          <td>{{this.brand}}</td>
-          <td>{{formatPrice this.price}} vnđ</td>
-          <td>
-            <button
-              style="font-size: 12px; width: 120px; font-weight:600"
-              type="button"
-              class="btn btn-outline-success editBtn"
-            >
-              <a
-                style="padding:20px 30px;text-decoration: none;color:green;"
-                href="/admin/product/{{this._id}}/edit"
-              >Sửa</a>
-            </button>
-            <button
-              style="font-size: 12px; width: 120px; font-weight:600"
-              data-bs-toggle="modal"
-              data-bs-target="#delete-product-modal"
-              data-bs-id="{{this._id}}"
-              type="button"
-              class="btn btn-outline-danger deleteBtn"
-            >Xoá
-            </button>
-          </td>
-        </tr>
+      <tr>
+        <td>
+          <div style="margin-right:10px;" class="form-check">
+            <input class="form-check-input" type="checkbox" name="productIds[]" value="{{this._id}}" />
+          </div>
+        </td>
+        <th scope="row">{{sum @index 1}}</th>
+        <td><img class="admin__product__img" src={{lastItem this.image}} alt="" /></td>
+        <td>{{this.name}}
+          <br />
+          <a href="/admin/product/{{this._id}}/feedback">Xem feedback</a>
+        </td>
+        <td>{{this.catelogy}}</td>
+        <td>{{this.brand}}</td>
+        <td>{{formatPrice this.price}} vnđ</td>
+        <td>
+          <button style="font-size: 12px; width: 120px; font-weight:600" type="button"
+            class="btn btn-outline-success editBtn">
+            <a style="padding:20px 30px;text-decoration: none;color:green;"
+              href="/admin/product/{{this._id}}/edit">Sửa</a>
+          </button>
+          <button style="font-size: 12px; width: 120px; font-weight:600" data-bs-toggle="modal"
+            data-bs-target="#delete-product-modal" data-bs-id="{{this._id}}" type="button"
+            class="btn btn-outline-danger deleteBtn">Xoá
+          </button>
+        </td>
+      </tr>
       {{else}}
-        <tr>
-          <td colspan="7" class="text-center">
-            Chưa có sản phẩm nào.
-            <a style="font-weight:700" href="/admin/product/create">
-              Thêm sản phẩm</a>
-          </td>
-        </tr>
+      <tr>
+        <td colspan="7" class="text-center">
+          Chưa có sản phẩm nào.
+          <a style="font-weight:700" href="/admin/product/create">
+            Thêm sản phẩm</a>
+        </td>
+      </tr>
       {{/each}}
     </tbody>
   </table>
 </form>
 <section id="Panigation" class="section-p1">
   {{#each pages}}
-    <a href="/admin/product?page={{this}}">{{this}}</a>
+  <a href="/admin/product?page={{this}}">{{this}}</a>
   {{/each}}
 </section>
 
 {{! Confirm delete product }}
 <!-- Modal -->
-<div
-  class="modal fade"
-  id="delete-product-modal"
-  tabindex="-1"
-  aria-labelledby="exampleModalLabel"
-  aria-hidden="true"
->
+<div class="modal fade" id="delete-product-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="exampleModalLabel">Xác nhận xóa sản phẩm</h5>
-        <button
-          type="button"
-          class="btn-close"
-          data-bs-dismiss="modal"
-          aria-label="Close"
-        ></button>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
         Bạn có chắc chắn muốn xóa sản phẩm này
       </div>
       <div class="modal-footer">
-        <button
-          id="confirm-btn-delete-product"
-          style="width:150px;"
-          type="button"
-          class="btn btn-danger"
-        >
+        <button id="confirm-btn-delete-product" style="width:150px;" type="button" class="btn btn-danger">
           Xác nhận
           {{!-- <a style="text-decoration: none;color:white;" href="/admin/product/{{this._id}}/edit">Xác
-                        nhận</a> --}}
+            nhận</a> --}}
         </button>
-        <button
-          type="button"
-          class="btn btn-secondary"
-          data-bs-dismiss="modal"
-        >Hủy</button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
       </div>
     </div>
   </div>
@@ -200,40 +126,46 @@
 
 <script>
   var btnDeleteProduct = document.getElementById('confirm-btn-delete-product')
-  var productId var deleteFormProduct = document.forms['delete-form-product']
-  var deleteModal = document.getElementById('delete-product-modal') var
-  checkboxAll = document.querySelector('#check-all') var checkboxes =
-  document.querySelectorAll('input[name="productIds[]"]'); var checkBtnSubmit =
-  document.querySelector('#check-submit-btn')
-  deleteModal.addEventListener('show.bs.modal', function (event) { var button =
-  event.relatedTarget productId = button.getAttribute('data-bs-id') })
-  btnDeleteProduct.onclick = function () { deleteFormProduct.action =
-  '/admin/product/' + productId + '?_method=DELETE' deleteFormProduct.submit() }
-  checkboxAll.onchange = () => { var isCheckedAll = checkboxAll.checked
-  checkboxes.forEach(checkbox => { checkbox.checked = isCheckedAll; });
-  checkSubmitBtn(); } checkboxes.forEach(checkbox => { checkbox.onchange = () =>
-  { var isCheckedAll = checkboxes.length ===
-  document.querySelectorAll('input[name="productIds[]"]:checked').length;
-  checkboxAll.checked = isCheckedAll checkSubmitBtn(); } }); //enable submit btn
-  function checkSubmitBtn() { var checkCount =
-  document.querySelectorAll('input[name="productIds[]"]:checked').length; if
-  (checkCount) checkBtnSubmit.classList.remove('disabled') else
-  checkBtnSubmit.classList.add('disabled') }
+  var productId
+  var deleteFormProduct = document.forms['delete-form-product']
+  var deleteModal = document.getElementById('delete-product-modal')
+  var checkboxAll = document.querySelector('#check-all')
+  var checkboxes = document.querySelectorAll('input[name="productIds[]"]');
+  var checkBtnSubmit = document.querySelector('#check-submit-btn')
+  deleteModal.addEventListener('show.bs.modal', function (event) {
+    var button = event.relatedTarget
+    productId = button.getAttribute('data-bs-id')
+  })
+  btnDeleteProduct.onclick = function () {
+    deleteFormProduct.action = '/admin/product/' + productId + '?_method=DELETE'
+    deleteFormProduct.submit()
+  }
+  checkboxAll.onchange = () => {
+    var isCheckedAll = checkboxAll.checked
+    checkboxes.forEach(checkbox => { checkbox.checked = isCheckedAll; });
+    checkSubmitBtn();
+  }
+  checkboxes.forEach(checkbox => {
+    checkbox.onchange = () => {
+      var isCheckedAll = checkboxes.length === document.querySelectorAll('input[name="productIds[]"]:checked').length;
+      checkboxAll.checked = isCheckedAll
+      checkSubmitBtn();
+    }
+  }); //enable submit btn
+  function checkSubmitBtn() {
+    var checkCount =
+      document.querySelectorAll('input[name="productIds[]"]:checked').length;
+    if
+      (checkCount) checkBtnSubmit.classList.remove('disabled')
+    else
+      checkBtnSubmit.classList.add('disabled')
+  }
 
 </script>
 
-<script
-  src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
-  integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
-  crossorigin="anonymous"
-></script>
-<script
-  src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"
-  integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB"
-  crossorigin="anonymous"
-></script>
-<script
-  src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js"
-  integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13"
-  crossorigin="anonymous"
-></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+  integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"
+  integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js"
+  integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script>

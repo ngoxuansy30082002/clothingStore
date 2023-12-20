@@ -116,6 +116,11 @@ router.get(
   authMiddleware.verifyTokenAndAdminAuth,
   adminController.cart
 );
+router.get(
+  "/user",
+  authMiddleware.verifyTokenAndAdminAuth,
+  adminController.getAllUser
+);
 // home page admin
 router.get(
   "/",
