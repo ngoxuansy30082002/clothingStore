@@ -39,15 +39,15 @@
 </section>
 
 <section id="form-details">
-    <form action="">
+   <form action="/submit" method="post">
         <span>LEAVE A MESSAGE</span>
         <h2>We love to hear from YOU</h2>
-        <input type="text" placeholder="Yourname">
-        <input type="text" placeholder="Email">
-        <input type="text" placeholder="Subject">
-        <textarea name="" id="" cols="30" rows="10" placeholder="Your MESSAGE"></textarea>
-        <button class="normal">Submit</button>
-    </form>
+        <input type="text" name="yourName" placeholder="Your Name">
+        <input type="text" name="yourEmail" placeholder="Email">
+        <input type="text" name="yourSubject" placeholder="Subject">
+        <textarea name="yourMessage" cols="30" rows="10" placeholder="Your MESSAGE"></textarea>
+        <button type="submit" class="normal">Submit</button>
+  </form>
 
     <div class="people">
         <div>
@@ -68,10 +68,45 @@
     </div>
 </section>
 
+{{#if contact}}
+{{#if success}}
+<div id="toast">
+<div class="toast toast__success">
+ <div class="toast__icon">
+            <i class="fas fa-check-circle"></i>
+        </div>
+        <div class="toast__body">
+            <h3 class="toast__title">Thành công!!!</h3>
+            <p class="toast__msg">Cảm ơn quý khách đã góp ý !!!</p>
+        </div>
+</div>
+</div>
+{{else}}
+<div id="toast">
+<div class="toast toast__error">
+ <div class="toast__icon">
+            <i class="fas fa-exclamation-circle"></i>
+        </div>
+        <div class="toast__body">
+            <h3 class="toast__title">Thất bại!!!</h3>
+            <p class="toast__msg">Bạn chưa nhập thông tin!!!</p>
+        </div>
+</div>
+</div>
+{{/if}}
+{{/if}}
+
 {{>newsletter}}
 
 <script>
     let navs = document.querySelectorAll("#navbar li a")
     navs[4].classList.add("active")
+
+    
+  const main = document.getElementById("toast");
+  
+    setTimeout(() => {
+      main.removeChild(toast);
+    }, 2600);
 </script>
 <script src="/js/clientSocketIO/common.js"></script>

@@ -26,7 +26,7 @@
     <div class="single-pro-details">
         <h3>{{product.brand}}</h3>
         <h2>{{product.name}}</h2>
-        <h2>${{product.price}}</h2>
+        <h2>{{formatPrice product.price}}VNĐ</h2>
         <form action="/cart/add-to-cart" method="post"> <!-- Form để gửi dữ liệu khi nhấn nút "Add To Cart" -->
         <select name="size">
             <option>Select Size</option>

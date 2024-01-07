@@ -11,6 +11,49 @@ const socketio = require("./serverSocketIO");
 
 const db = require("./config/db.config"); // mongo database
 const User = require("./app/models/User");
+const app = express();
+
+const bodyParser = require("body-parser");
+const xlsx = require("xlsx");
+app.use(bodyParser.urlencoded({ extended: true }));
+
+// app.get("/", (req, res) => {
+//   res.sendFile(path.join(__dirname, "index.html"));
+// });
+
+app.post("/submit", (req, res) => {
+  const { yourName, yourEmail, yourSubject, yourMessage } = req.body;
+  if (yourEmail === "" || yourMessage === "") {
+    res.render("contact/contact", {
+      showHeaderAndFooter: true,
+      contact: true,
+      success: false,
+    });
+  } else {
+    const data = {
+      Name: yourName,
+      Email: yourEmail,
+      Subject: yourSubject,
+      Message: yourMessage,
+    };
+    let existingData = [];
+    try {
+      const workbook = xlsx.readFile("form_data.xlsx");
+      existingData = xlsx.utils.sheet_to_json(workbook.Sheets.Sheet1);
+    } catch (error) {}
+    existingData.push(data);
+    const wb = xlsx.utils.book_new();
+    const ws = xlsx.utils.json_to_sheet(existingData);
+    xlsx.utils.book_append_sheet(wb, ws, "Sheet1");
+    xlsx.writeFile(wb, "form_data.xlsx");
+    res.render("contact/contact", {
+      showHeaderAndFooter: true,
+      contact: true,
+      success: true,
+    });
+  }
+});
+
 // connect to mongodb
 db.connect();
 async function init() {
@@ -20,7 +63,6 @@ async function init() {
 }
 init();
 
-const app = express();
 const { Server } = require("socket.io");
 const httpServer = createServer(app);
 const io = new Server(httpServer, {});
